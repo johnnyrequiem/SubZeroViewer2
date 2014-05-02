@@ -7,8 +7,9 @@
   <import>
     <widget-library name="MonoDevelop.Ide, Version=2.6.0.0, Culture=neutral" />
     <widget-library name="MonoDevelop.DesignerSupport, Version=2.6.0.0, Culture=neutral" />
-    <widget-library name="../bin/Debug/SubZeroViewer2.exe" internal="true" />
     <widget-library name="../nplot/NPlot.Gtk.dll" />
+    <widget-library name="../scottstevens/Florence.GtkSharp.dll" />
+    <widget-library name="../bin/Release/SubZeroViewer2.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="1237 1915">
     <property name="MemberName" />
@@ -54,7 +55,7 @@
           <widget class="Gtk.Notebook" id="nbFrames">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="CurrentPage">1</property>
+            <property name="CurrentPage">6</property>
             <property name="ShowTabs">False</property>
             <child>
               <widget class="Gtk.HBox" id="hbHomeFrame">
@@ -1933,7 +1934,9 @@
                                             <property name="MemberName" />
                                             <property name="ShadowType">None</property>
                                             <child>
-                                              <placeholder />
+                                              <widget class="Gtk.Image" id="img_graph">
+                                                <property name="MemberName" />
+                                              </widget>
                                             </child>
                                           </widget>
                                         </child>

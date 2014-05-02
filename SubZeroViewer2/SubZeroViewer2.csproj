@@ -63,6 +63,16 @@
     <Reference Include="NPlot">
       <HintPath>nplot\NPlot.dll</HintPath>
     </Reference>
+    <Reference Include="ZedGraph">
+      <HintPath>zedgraph\ZedGraph.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="Florence.GtkSharp">
+      <HintPath>scottstevens\Florence.GtkSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Florence">
+      <HintPath>scottstevens\Florence.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="res\buttons\manage_installed_devices_blue.png" />

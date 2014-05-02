@@ -1,6 +1,6 @@
 using Gtk;
 using NPlot.Gtk;
-
+using ZedGraph;
 using System;
 using System.Collections;
 using System.Drawing;
@@ -24,7 +24,7 @@ namespace SubZeroViewer2
 		private ArrayList _ar_y_axis_data = null;
 
 		private LinePlot _linePlot = new LinePlot();
-		private Legend _linePlotLegend = new Legend();
+		private NPlot.Legend _linePlotLegend = new NPlot.Legend();
 		private CUtillity cutil = new CUtillity();
 
 		public CGraph ()
@@ -115,7 +115,40 @@ namespace SubZeroViewer2
 			}
 		}
 
-		public void plot(out NPlot.Gtk.PlotSurface2D graph ) {
+		public void ploy_zedgraph ( out ZedGraphControl g_graph) {
+
+			ZedGraphControl ctl = new ZedGraphControl ();
+			GraphPane g_pane = ctl.GraphPane;
+
+			int __width_factor = 45;
+			int __graph_width = _c_device_logfile_entries.Count * __width_factor;
+
+			g_pane.Title.Text = "My ZedGraph";
+			g_pane.XAxis.Title.Text = "Date/Time Stamp";
+			g_pane.YAxis.Title.Text = "Temp (*C)";
+			ctl.Width = __graph_width;
+			ctl.Height = 500;
+
+			PointPairList g_pane_list = new PointPairList ();
+
+			for (int i = 0; i < _ar_x_axis_data.Count; i++) {
+				double x = (double)new XDate ((DateTime)_ar_x_axis_data.ToArray() [i]);
+				double y = Convert.ToDouble ( _ar_y_axis_data [i]);
+
+				g_pane_list.Add (x, y );
+			}
+
+			CurveItem g_pane_curve = g_pane.AddCurve ("logfile/deviceID", 
+				g_pane_list, Color.BlueViolet, SymbolType.Square);
+
+			g_pane.XAxis.Type = AxisType.Date;
+
+			ctl.AxisChange ();
+			g_graph = ctl;
+
+		}
+
+		public void plot_nplot(out NPlot.Gtk.PlotSurface2D graph ) {
 
 			DateTime dt = DateTime.Now;
 			int __width_factor = 45;
@@ -124,6 +157,7 @@ namespace SubZeroViewer2
 			NPlot.Gtk.PlotSurface2D _graph = new NPlot.Gtk.PlotSurface2D ();
 
 			_graph.SetSizeRequest ( __graph_width, 500);
+
 			_graph.ModifyBg (StateType.Normal, cutil.get_light_grey());
 
 			Bitmap _graphBitmap = new Bitmap (1000, 500);
@@ -134,6 +168,7 @@ namespace SubZeroViewer2
 			x.SmallTickSize = 10;
 			x.LargeTickStep = new TimeSpan (0, 30, 0);
 			x.NumberFormat = "hh:mm";
+
 
 			_graph.PlotBackImage = _graphBitmap;
 			_graph.YAxis1 = y;
@@ -152,8 +187,8 @@ namespace SubZeroViewer2
 			_linePlot.Color = Color.Orange;
 
 			_linePlotLegend.AttachTo ( NPlot.PlotSurface2D.XAxisPosition.Top, NPlot.PlotSurface2D.YAxisPosition.Left);
-			_linePlotLegend.VerticalEdgePlacement = Legend.Placement.Inside;
-			_linePlotLegend.HorizontalEdgePlacement = Legend.Placement.Outside;
+			_linePlotLegend.VerticalEdgePlacement = NPlot.Legend.Placement.Inside;
+			_linePlotLegend.HorizontalEdgePlacement = NPlot.Legend.Placement.Outside;
 			_linePlotLegend.BorderStyle = LegendBase.BorderType.Shadow;
 			_linePlotLegend.YOffset = -10;
 			_linePlotLegend.XOffset = -5;

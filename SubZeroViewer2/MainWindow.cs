@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections;
 using System.ComponentModel;
 
+using ZedGraph;
 using Gtk;
 using GLib;
 using Cairo;
@@ -786,18 +787,8 @@ public partial class MainWindow: Gtk.Window
 		nbFrames.CurrentPage = (int)nb_Notebook_Pages.DEVICE_BROWSER;
 	}
 
-	void OnIvFtpBrowserItemActivated (object o, ItemActivatedArgs args)
-	{
-		//TODO: Implement OnIvFtpBrowserItemActivated
-
-		/* Get and parse file.
-		 * Populate appropriate classes.
-		 * --> LogFileEntries.
-		 * --> Graph Class
-		 * Plot graph and alarms.
-		 */
-
-		NPlot.Gtk.PlotSurface2D graph = null;
+	//==================ZEDGRAPH=================
+	void OnIvFtpBrowserItemActivated (object o, ItemActivatedArgs args) {
 
 		string selected_file = get_BrowserItem_Value (ivFtpBrowser);
 		StreamReader file_reader = c_current_ftp_session.CFTP_GetFile (selected_file);
@@ -807,12 +798,14 @@ public partial class MainWindow: Gtk.Window
 		_port.WidthRequest = 2000;
 		_port.ResizeMode = ResizeMode.Parent;
 
+		ZedGraphControl g_graph = new ZedGraphControl ();
+
 		c_current_logfile = new CLogFile 
-            (
-                file_reader, 
-                c_current_ftp_session.CFTP_LogFileDate,
-                c_current_device.DeviceFileDescription
-            );
+		                    (
+			                    file_reader, 
+			                    c_current_ftp_session.CFTP_LogFileDate,
+			                    c_current_device.DeviceFileDescription
+			                   );
 
 		c_current_graph = new CGraph (c_current_logfile.LogFileEntries);
 		//c_current_graph.YAxisCodeIndex = c_current_logfile.CLogFile_Get_Y_Axis_Code_Index (c_current_device);
@@ -823,27 +816,23 @@ public partial class MainWindow: Gtk.Window
 		c_current_graph.CGRAPH_X_AxisData = c_current_logfile.LogFileTime;
 		c_current_graph.CGRAPH_Y_AxisData = c_current_logfile.LogFileTemps;
 
-		/**
-		 * Plot Graph
-		 */
+		//Plot Graph
+		c_current_graph.ploy_zedgraph (out g_graph);
+		System.Drawing.Bitmap bmp_graph = 
+			new System.Drawing.Bitmap (g_graph.Width, g_graph.Height);
 
-		swGraph.Remove ((Widget)swGraph.Child);
+		g_graph.DrawToBitmap(bmp_graph, 
+			new System.Drawing.Rectangle(0, 0, g_graph.Width, g_graph.Height));
 
-		graph = new PlotSurface2D();
-		graph.WidthRequest = 2000;
-		graph.Allocation  = (new Gdk.Rectangle (0, 0, 2000, 500));
+		bmp_graph.Save ("graph.bmp");
 
-		c_current_graph.plot (out graph);
+		Gtk.Image img = new Image ("graph.bmp");
+		Gdk.Image g_img = img.ImageProp;
 
-		swGraph.ReallocateRedraws = true;
-
-		//swGraph.AddWithViewport (graph);
-		_port.Add (graph);
-		swGraph.ResizeMode = ResizeMode.Queue;
-		swGraph.Add (_port);
-		graph.QueueResize ();
-		swGraph.QueueDraw ();
-		swGraph.ShowAll ();
+		img_graph.ImageProp = g_img;
+		img_graph.File = "graph.bmp";
+		img_graph.QueueDraw ();
+		img_graph.ShowAll ();
 
 		/**
 		 * Fill Alarms Table
@@ -855,8 +844,81 @@ public partial class MainWindow: Gtk.Window
 		file_reader.Dispose ();
 
 		nbFrames.CurrentPage = (int)nb_Notebook_Pages.GRAPH;
-
 	}
+
+	//========NPLOT===========
+//	void OnIvFtpBrowserItemActivated (object o, ItemActivatedArgs args)
+//	{
+//		//TODO: Implement OnIvFtpBrowserItemActivated
+//
+//		/* Get and parse file.
+//		 * Populate appropriate classes.
+//		 * --> LogFileEntries.
+//		 * --> Graph Class
+//		 * Plot graph and alarms.
+//		 */
+//
+//		NPlot.Gtk.PlotSurface2D graph = null;
+//
+//
+//		string selected_file = get_BrowserItem_Value (ivFtpBrowser);
+//		StreamReader file_reader = c_current_ftp_session.CFTP_GetFile (selected_file);
+//
+//		Viewport _port = new Viewport (new Adjustment(1000, 500, 1000, 5, 0, 500), 
+//			new Adjustment (500, 500, 500, 0, 0, 500));
+//		_port.WidthRequest = 2000;
+//		_port.ResizeMode = ResizeMode.Parent;
+//
+//		c_current_logfile = new CLogFile 
+//            (
+//                file_reader, 
+//                c_current_ftp_session.CFTP_LogFileDate,
+//                c_current_device.DeviceFileDescription
+//            );
+//
+//		c_current_graph = new CGraph (c_current_logfile.LogFileEntries);
+//		//c_current_graph.YAxisCodeIndex = c_current_logfile.CLogFile_Get_Y_Axis_Code_Index (c_current_device);
+//		c_current_graph.Title = selected_file;
+//		c_current_graph.YAxisCode = "CURTEMP";
+//		c_current_graph.YAxisLabel = "Current Temperature";
+//		c_current_graph.XAxisLabel = "Time Stamp";
+//		c_current_graph.CGRAPH_X_AxisData = c_current_logfile.LogFileTime;
+//		c_current_graph.CGRAPH_Y_AxisData = c_current_logfile.LogFileTemps;
+//
+//		/**
+//		 * Plot Graph
+//		 */
+//
+//		swGraph.Remove ((Widget)swGraph.Child);
+//
+//		graph = new PlotSurface2D();
+//		graph.WidthRequest = 2000;
+//		graph.Allocation  = (new Gdk.Rectangle (0, 0, 2000, 500));
+//
+//		c_current_graph.plot_nplot (out graph);
+//
+//		swGraph.ReallocateRedraws = true;
+//
+//		//swGraph.AddWithViewport (graph);
+//		_port.Add (graph);
+//		swGraph.ResizeMode = ResizeMode.Queue;
+//		swGraph.Add (_port);
+//		graph.QueueResize ();
+//		swGraph.QueueDraw ();
+//		swGraph.ShowAll ();
+//
+//		/**
+//		 * Fill Alarms Table
+//		 */
+//
+//		FillAlarmsTable (c_current_logfile.LogFileAlarms);
+//
+//		file_reader.Close ();
+//		file_reader.Dispose ();
+//
+//		nbFrames.CurrentPage = (int)nb_Notebook_Pages.GRAPH;
+//
+//	}
 
 	private void FillAlarmsTable (ArrayList alarms) {
 

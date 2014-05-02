@@ -167,6 +167,7 @@ public partial class MainWindow
 	private global::Gtk.VBox vbox2;
 	private global::Gtk.Notebook nbGraph;
 	private global::Gtk.ScrolledWindow swGraph;
+	private global::Gtk.Image img_graph;
 	private global::Gtk.Label label1;
 	private global::Gtk.ScrolledWindow swAlarms;
 	private global::Gtk.TreeView tvwAlarms;
@@ -224,7 +225,7 @@ public partial class MainWindow
 		this.nbFrames = new global::Gtk.Notebook ();
 		this.nbFrames.CanFocus = true;
 		this.nbFrames.Name = "nbFrames";
-		this.nbFrames.CurrentPage = 1;
+		this.nbFrames.CurrentPage = 6;
 		this.nbFrames.ShowTabs = false;
 		// Container child nbFrames.Gtk.Notebook+NotebookChild
 		this.hbHomeFrame = new global::Gtk.HBox ();
@@ -1583,6 +1584,14 @@ public partial class MainWindow
 		this.swGraph.VscrollbarPolicy = ((global::Gtk.PolicyType)(2));
 		this.swGraph.HscrollbarPolicy = ((global::Gtk.PolicyType)(0));
 		this.swGraph.ShadowType = ((global::Gtk.ShadowType)(1));
+		// Container child swGraph.Gtk.Container+ContainerChild
+		global::Gtk.Viewport w174 = new global::Gtk.Viewport ();
+		w174.ShadowType = ((global::Gtk.ShadowType)(0));
+		// Container child GtkViewport.Gtk.Container+ContainerChild
+		this.img_graph = new global::Gtk.Image ();
+		this.img_graph.Name = "img_graph";
+		w174.Add (this.img_graph);
+		this.swGraph.Add (w174);
 		this.nbGraph.Add (this.swGraph);
 		// Notebook tab
 		this.label1 = new global::Gtk.Label ();
@@ -1600,8 +1609,8 @@ public partial class MainWindow
 		this.tvwAlarms.Name = "tvwAlarms";
 		this.swAlarms.Add (this.tvwAlarms);
 		this.nbGraph.Add (this.swAlarms);
-		global::Gtk.Notebook.NotebookChild w176 = ((global::Gtk.Notebook.NotebookChild)(this.nbGraph [this.swAlarms]));
-		w176.Position = 1;
+		global::Gtk.Notebook.NotebookChild w179 = ((global::Gtk.Notebook.NotebookChild)(this.nbGraph [this.swAlarms]));
+		w179.Position = 1;
 		// Notebook tab
 		this.label15 = new global::Gtk.Label ();
 		this.label15.Name = "label15";
@@ -1609,11 +1618,11 @@ public partial class MainWindow
 		this.nbGraph.SetTabLabel (this.swAlarms, this.label15);
 		this.label15.ShowAll ();
 		this.vbox2.Add (this.nbGraph);
-		global::Gtk.Box.BoxChild w177 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.nbGraph]));
-		w177.Position = 0;
+		global::Gtk.Box.BoxChild w180 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.nbGraph]));
+		w180.Position = 0;
 		this.hbox23.Add (this.vbox2);
-		global::Gtk.Box.BoxChild w178 = ((global::Gtk.Box.BoxChild)(this.hbox23 [this.vbox2]));
-		w178.Position = 0;
+		global::Gtk.Box.BoxChild w181 = ((global::Gtk.Box.BoxChild)(this.hbox23 [this.vbox2]));
+		w181.Position = 0;
 		this.GtkAlignment42.Add (this.hbox23);
 		this.fraGraph.Add (this.GtkAlignment42);
 		this.lblGraph = new global::Gtk.Label ();
@@ -1621,11 +1630,11 @@ public partial class MainWindow
 		this.lblGraph.UseMarkup = true;
 		this.fraGraph.LabelWidget = this.lblGraph;
 		this.hbGraph.Add (this.fraGraph);
-		global::Gtk.Box.BoxChild w181 = ((global::Gtk.Box.BoxChild)(this.hbGraph [this.fraGraph]));
-		w181.Position = 1;
+		global::Gtk.Box.BoxChild w184 = ((global::Gtk.Box.BoxChild)(this.hbGraph [this.fraGraph]));
+		w184.Position = 1;
 		this.nbFrames.Add (this.hbGraph);
-		global::Gtk.Notebook.NotebookChild w182 = ((global::Gtk.Notebook.NotebookChild)(this.nbFrames [this.hbGraph]));
-		w182.Position = 6;
+		global::Gtk.Notebook.NotebookChild w185 = ((global::Gtk.Notebook.NotebookChild)(this.nbFrames [this.hbGraph]));
+		w185.Position = 6;
 		// Notebook tab
 		this.lbl_nbGraph = new global::Gtk.Label ();
 		this.lbl_nbGraph.Name = "lbl_nbGraph";
@@ -1656,29 +1665,29 @@ public partial class MainWindow
 		this.btnFtpBack.Name = "btnFtpBack";
 		this.btnFtpBack.UseUnderline = true;
 		this.btnFtpBack.Relief = ((global::Gtk.ReliefStyle)(2));
-		global::Gtk.Image w183 = new global::Gtk.Image ();
-		w183.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("SubZeroViewer2.res.buttons.back_blue.png");
-		this.btnFtpBack.Image = w183;
+		global::Gtk.Image w186 = new global::Gtk.Image ();
+		w186.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("SubZeroViewer2.res.buttons.back_blue.png");
+		this.btnFtpBack.Image = w186;
 		this.vbox16.Add (this.btnFtpBack);
-		global::Gtk.Box.BoxChild w184 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.btnFtpBack]));
-		w184.Position = 0;
-		w184.Expand = false;
-		w184.Fill = false;
+		global::Gtk.Box.BoxChild w187 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.btnFtpBack]));
+		w187.Position = 0;
+		w187.Expand = false;
+		w187.Fill = false;
 		// Container child vbox16.Gtk.Box+BoxChild
 		this.vpaned12 = new global::Gtk.VPaned ();
 		this.vpaned12.CanFocus = true;
 		this.vpaned12.Name = "vpaned12";
 		this.vpaned12.Position = 10;
 		this.vbox16.Add (this.vpaned12);
-		global::Gtk.Box.BoxChild w185 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.vpaned12]));
-		w185.Position = 1;
+		global::Gtk.Box.BoxChild w188 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.vpaned12]));
+		w188.Position = 1;
 		this.GtkAlignment43.Add (this.vbox16);
 		this.frame1.Add (this.GtkAlignment43);
 		this.hbFtpBrowser.Add (this.frame1);
-		global::Gtk.Box.BoxChild w188 = ((global::Gtk.Box.BoxChild)(this.hbFtpBrowser [this.frame1]));
-		w188.Position = 0;
-		w188.Expand = false;
-		w188.Fill = false;
+		global::Gtk.Box.BoxChild w191 = ((global::Gtk.Box.BoxChild)(this.hbFtpBrowser [this.frame1]));
+		w191.Position = 0;
+		w191.Expand = false;
+		w191.Fill = false;
 		// Container child hbFtpBrowser.Gtk.Box+BoxChild
 		this.frame5 = new global::Gtk.Frame ();
 		this.frame5.Name = "frame5";
@@ -1700,11 +1709,11 @@ public partial class MainWindow
 		this.GtkAlignment45.Add (this.ivFtpBrowser);
 		this.frame5.Add (this.GtkAlignment45);
 		this.hbFtpBrowser.Add (this.frame5);
-		global::Gtk.Box.BoxChild w191 = ((global::Gtk.Box.BoxChild)(this.hbFtpBrowser [this.frame5]));
-		w191.Position = 1;
+		global::Gtk.Box.BoxChild w194 = ((global::Gtk.Box.BoxChild)(this.hbFtpBrowser [this.frame5]));
+		w194.Position = 1;
 		this.nbFrames.Add (this.hbFtpBrowser);
-		global::Gtk.Notebook.NotebookChild w192 = ((global::Gtk.Notebook.NotebookChild)(this.nbFrames [this.hbFtpBrowser]));
-		w192.Position = 7;
+		global::Gtk.Notebook.NotebookChild w195 = ((global::Gtk.Notebook.NotebookChild)(this.nbFrames [this.hbFtpBrowser]));
+		w195.Position = 7;
 		// Notebook tab
 		this.lbl_nbFtpBrowser = new global::Gtk.Label ();
 		this.lbl_nbFtpBrowser.Name = "lbl_nbFtpBrowser";
@@ -1712,18 +1721,18 @@ public partial class MainWindow
 		this.nbFrames.SetTabLabel (this.hbFtpBrowser, this.lbl_nbFtpBrowser);
 		this.lbl_nbFtpBrowser.ShowAll ();
 		this.vbox1.Add (this.nbFrames);
-		global::Gtk.Box.BoxChild w193 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.nbFrames]));
-		w193.Position = 1;
+		global::Gtk.Box.BoxChild w196 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.nbFrames]));
+		w196.Position = 1;
 		// Container child vbox1.Gtk.Box+BoxChild
 		this.sb_status = new global::Gtk.Statusbar ();
 		this.sb_status.Name = "sb_status";
 		this.sb_status.Spacing = 6;
 		this.vbox1.Add (this.sb_status);
-		global::Gtk.Box.BoxChild w194 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.sb_status]));
-		w194.PackType = ((global::Gtk.PackType)(1));
-		w194.Position = 2;
-		w194.Expand = false;
-		w194.Fill = false;
+		global::Gtk.Box.BoxChild w197 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.sb_status]));
+		w197.PackType = ((global::Gtk.PackType)(1));
+		w197.Position = 2;
+		w197.Expand = false;
+		w197.Fill = false;
 		this.Add (this.vbox1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();
