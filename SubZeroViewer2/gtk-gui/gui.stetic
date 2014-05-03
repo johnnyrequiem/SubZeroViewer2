@@ -8,7 +8,6 @@
     <widget-library name="MonoDevelop.Ide, Version=2.6.0.0, Culture=neutral" />
     <widget-library name="MonoDevelop.DesignerSupport, Version=2.6.0.0, Culture=neutral" />
     <widget-library name="../nplot/NPlot.Gtk.dll" />
-    <widget-library name="../scottstevens/Florence.GtkSharp.dll" />
     <widget-library name="../bin/Release/SubZeroViewer2.exe" internal="true" />
   </import>
   <widget class="Gtk.Window" id="MainWindow" design-size="1237 1915">

@@ -123,25 +123,50 @@ namespace SubZeroViewer2
 			int __width_factor = 45;
 			int __graph_width = _c_device_logfile_entries.Count * __width_factor;
 
-			g_pane.Title.Text = "My ZedGraph";
+			g_pane.Title.Text = "Time Temperature Graph";
+			g_pane.Title.FontSpec.Size = 12f;
+
+			g_pane.LineType = LineType.Stack;
+
 			g_pane.XAxis.Title.Text = "Date/Time Stamp";
+			g_pane.XAxis.Title.FontSpec.Size = 10f;
+			g_pane.XAxis.MajorGrid.IsVisible = true;
+			g_pane.XAxis.MinorGrid.IsVisible = true;
+			g_pane.XAxis.Scale.FontSpec.Size = 10f;
+			g_pane.XAxis.Type = AxisType.Date;
+
 			g_pane.YAxis.Title.Text = "Temp (*C)";
+			g_pane.YAxis.Title.FontSpec.Size = 10f;
+			g_pane.YAxis.MajorGrid.IsVisible = true;
+			g_pane.YAxis.MinorGrid.IsVisible = true;
+			g_pane.YAxis.Scale.FontSpec.Size = 10f;
+
+			g_pane.Fill = new Fill (Color.LightBlue, Color.MediumSlateBlue, 45.0f);
+			g_pane.Chart.Fill.Type = FillType.None;
+
+			g_pane.Legend.FontSpec.Size = 10f;
+			g_pane.Legend.Fill = new Fill (Color.LightGray);
+
+			ctl.AutoSize = false;
 			ctl.Width = __graph_width;
+			ctl.MinimumSize = new Size (800, 500);
 			ctl.Height = 500;
 
 			PointPairList g_pane_list = new PointPairList ();
 
 			for (int i = 0; i < _ar_x_axis_data.Count; i++) {
+
 				double x = (double)new XDate ((DateTime)_ar_x_axis_data.ToArray() [i]);
 				double y = Convert.ToDouble ( _ar_y_axis_data [i]);
 
 				g_pane_list.Add (x, y );
 			}
 
-			CurveItem g_pane_curve = g_pane.AddCurve ("logfile/deviceID", 
-				g_pane_list, Color.BlueViolet, SymbolType.Square);
-
-			g_pane.XAxis.Type = AxisType.Date;
+			LineItem g_pane_curve = g_pane.AddCurve (this.Title, 
+				g_pane_list, Color.BlueViolet, SymbolType.Circle);
+			g_pane_curve.Symbol.Fill = new Fill(Color.BlueViolet);
+			g_pane_curve.Line.IsSmooth = true;
+			g_pane_curve.Line.Width = 2.0f;
 
 			ctl.AxisChange ();
 			g_graph = ctl;
